@@ -1,4 +1,3 @@
-package etapa1;
 import java.time.*;
 
 public class Data {

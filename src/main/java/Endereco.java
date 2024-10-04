@@ -1,5 +1,3 @@
-package etapa1;
-
 public class Endereco {
     private String nomeDaRua;
     private String cidade;
