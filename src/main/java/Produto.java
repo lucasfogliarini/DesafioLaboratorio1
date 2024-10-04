@@ -44,6 +44,6 @@ public class Produto {
 
     @Override
     public String toString() {
-        return String.format("Produto { nome: %s, preco: %s }", nome, preco);
+        return String.format("Produto { nome: %s, preco: %s, dataValidade: %s }", nome, preco, dataValidade);
     }
 }
