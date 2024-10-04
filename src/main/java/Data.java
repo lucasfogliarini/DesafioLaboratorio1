@@ -18,6 +18,10 @@ public class Data {
         }
     }
 
+    public boolean isBefore(Data date) {
+        return LocalDate.of(ano, mes, dia).isBefore(LocalDate.of(date.ano, date.mes, date.dia));
+    }
+
     public int getDia() {
         return dia;
     }
@@ -66,7 +70,7 @@ public class Data {
 
     private boolean dataValida(int dia, int mes, int ano) {
         try {
-            LocalDateTime.of(ano, mes, dia, 0, 0);
+            LocalDate.of(ano, mes, dia);
             return true;
         } catch (DateTimeException e) {
             return false;
