@@ -71,7 +71,12 @@ public class Loja {
 
     @Override
     public String toString() {
-        return String.format("Loja { nome: %s, quantidadeFuncionarios: %s, salarioBaseFuncionario: %s, dataFundacao: %s }", nome, quantidadeFuncionarios, salarioBaseFuncionario, dataFundacao);
+        return String.format("Loja { nome: %s, quantidadeFuncionarios: %s, salarioBaseFuncionario: %s, endereco: %s, dataFundacao: %s }",
+                nome,
+                quantidadeFuncionarios,
+                salarioBaseFuncionario,
+                endereco != null ? endereco.toString() : "Não informado",
+                dataFundacao != null ? dataFundacao.toString() : "Não informado");
     }
 
     public double gastosComSalario() {
