@@ -4,6 +4,7 @@ public class Loja {
     private double salarioBaseFuncionario;
     private Endereco endereco;
     private Data dataFundacao;
+    private Produto[] estoqueProdutos;
 
     public Loja(String nome, int quantidadeFuncionarios) {
         this.nome = nome;
@@ -11,22 +12,35 @@ public class Loja {
         this.salarioBaseFuncionario = -1;
     }
 
-    public Loja(String nome, int quantidadeFuncionarios, Endereco endereco, Data dataFundacao) {
-        this(nome, quantidadeFuncionarios, -1, endereco, dataFundacao);
-    }
-
     public Loja(String nome, int quantidadeFuncionarios, double salarioBaseFuncionario) {
-        this.nome = nome;
-        this.quantidadeFuncionarios = quantidadeFuncionarios;
+        this(nome, quantidadeFuncionarios);
         this.salarioBaseFuncionario = salarioBaseFuncionario;
     }
 
     public Loja(String nome, int quantidadeFuncionarios, double salarioBaseFuncionario, Endereco endereco, Data dataFundacao) {
-        this.nome = nome;
-        this.quantidadeFuncionarios = quantidadeFuncionarios;
-        this.salarioBaseFuncionario = salarioBaseFuncionario;
+        this(nome, quantidadeFuncionarios, salarioBaseFuncionario);
         this.endereco = endereco;
         this.dataFundacao = dataFundacao;
+    }
+
+    public Loja(String nome, int quantidadeFuncionarios, Endereco endereco, Data dataFundacao) {
+        this(nome, quantidadeFuncionarios, -1, endereco, dataFundacao);
+    }
+
+    public Loja(String nome, int quantidadeFuncionarios, double salarioBaseFuncionario, Endereco endereco, int capacidadeEstoque) {
+        this(nome, quantidadeFuncionarios, salarioBaseFuncionario);
+        this.endereco = endereco;
+        this.estoqueProdutos = new Produto[capacidadeEstoque];
+    }
+
+    public Loja(String nome, int quantidadeFuncionarios, Endereco endereco, Data dataFundacao, int capacidadeEstoque) {
+        this(nome, quantidadeFuncionarios, endereco, dataFundacao);
+        this.estoqueProdutos = new Produto[capacidadeEstoque];
+    }
+
+    public Loja(String nome, int quantidadeFuncionarios, double salarioBaseFuncionario, Endereco endereco, Data dataFundacao, int capacidadeEstoque) {
+        this(nome, quantidadeFuncionarios, salarioBaseFuncionario, endereco, dataFundacao);
+        this.estoqueProdutos = new Produto[capacidadeEstoque];
     }
 
     public String getNome() {
@@ -69,16 +83,6 @@ public class Loja {
         this.dataFundacao = dataFundacao;
     }
 
-    @Override
-    public String toString() {
-        return String.format("Loja { nome: %s, quantidadeFuncionarios: %s, salarioBaseFuncionario: %s, endereco: %s, dataFundacao: %s }",
-                nome,
-                quantidadeFuncionarios,
-                salarioBaseFuncionario,
-                endereco != null ? endereco.toString() : "Não informado",
-                dataFundacao != null ? dataFundacao.toString() : "Não informado");
-    }
-
     public double gastosComSalario() {
         if (salarioBaseFuncionario == -1) {
             return -1;
@@ -94,5 +98,52 @@ public class Loja {
         } else {
             return 'G'; // Grande
         }
+    }
+
+    public Produto[] getEstoqueProdutos() {
+        return estoqueProdutos;
+    }
+
+    public void setEstoqueProdutos(Produto[] estoqueProdutos) {
+        this.estoqueProdutos = estoqueProdutos;
+    }
+
+    public boolean insereProduto(Produto produto) {
+        for (int i = 0; i < estoqueProdutos.length; i++) {
+            if (estoqueProdutos[i] == null) {
+                estoqueProdutos[i] = produto;
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public boolean removeProduto(String nomeProduto) {
+        for (int i = 0; i < estoqueProdutos.length; i++) {
+            if (estoqueProdutos[i] != null && estoqueProdutos[i].getNome().equals(nomeProduto)) {
+                estoqueProdutos[i] = null;
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public void imprimeProdutos() {
+        System.out.println("Produtos da loja " + nome + ":");
+        for (Produto produto : estoqueProdutos) {
+            if (produto != null) {
+                System.out.println(produto);
+            }
+        }
+    }
+
+    @Override
+    public String toString() {
+        return String.format("Loja { nome: %s, quantidadeFuncionarios: %s, salarioBaseFuncionario: %s, endereco: %s, dataFundacao: %s }",
+                nome,
+                quantidadeFuncionarios,
+                salarioBaseFuncionario,
+                endereco != null ? endereco.toString() : "Não informado",
+                dataFundacao != null ? dataFundacao.toString() : "Não informado");
     }
 }
